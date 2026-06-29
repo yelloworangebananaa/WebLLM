@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WebLLM</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <main class="app" role="application" aria-label="WebLLM assistant">
+      <header class="header" role="banner">
+        <div>
+          <h1>WebLLM</h1>
+          <p class="subtitle">Local vision chat · nothing leaves your machine</p>
+        </div>
+        <div class="header-actions">
+          <label class="screen-toggle" title="When on, captures your tab before answering">
+            <input id="screenToggle" type="checkbox" checked />
+            <span class="screen-toggle__track" aria-hidden="true"></span>
+            <span class="screen-toggle__label">Screen</span>
+          </label>
+          <span id="status" class="status status--warming" role="status" aria-live="polite">Warming…</span>
+        </div>
+      </header>
+
+      <div
+        id="modelProgress"
+        class="model-progress hidden"
+        role="progressbar"
+        aria-valuemin="0"
+        aria-valuemax="100"
+        aria-valuenow="0"
+        aria-label="Model download progress"
+      >
+        <div id="modelProgressBar" class="model-progress__bar"></div>
+      </div>
+
+      <section id="onboarding" class="onboarding" aria-labelledby="onboardingTitle">
+        <div class="onboarding__content">
+          <p id="onboardingTitle" class="onboarding__title">One-time setup</p>
+          <p class="onboarding__body">
+            First launch downloads the Gemma vision model from Hugging Face (~3 GB). After that, chat works offline.
+          </p>
+          <p class="onboarding__privacy">
+            Your questions and screenshots are never saved. Only model weights may cache in browser storage so reloads are faster.
+          </p>
+        </div>
+        <button id="dismissOnboarding" type="button" class="onboarding__dismiss">Got it</button>
+      </section>
+
+      <section id="emptyState" class="empty-state" aria-labelledby="emptyTitle">
+        <p class="empty-state__eyebrow">Ready when status shows WebGPU or CPU</p>
+        <h2 id="emptyTitle" class="empty-state__title">Ask about what you see</h2>
+        <p class="empty-state__body">
+          Turn <strong>Screen</strong> on to capture the active tab, or off for plain text chat.
+        </p>
+        <ul class="empty-state__tips">
+          <li>Works on normal websites — not chrome:// pages</li>
+          <li>One question at a time — use Stop to cancel</li>
+          <li>Answers stream in as the model thinks</li>
+        </ul>
+      </section>
+
+      <div id="chat" class="chat" role="log" aria-live="polite" aria-relevant="additions text"></div>
+
+      <div id="warning" class="warning hidden" role="alert"></div>
+
+      <form id="composer" class="composer" aria-label="Message composer">
+        <textarea
+          id="input"
+          rows="2"
+          placeholder="Ask about what's on your screen…"
+          autocomplete="off"
+          aria-label="Your message"
+        ></textarea>
+        <button id="sendBtn" type="submit" aria-label="Send message">
+          <span class="btn-send">Send</span>
+          <span class="btn-stop" aria-hidden="true"></span>
+        </button>
+      </form>
+    </main>
+    <script type="module" src="popup.js"></script>
+  </body>
+</html>
