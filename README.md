@@ -200,7 +200,7 @@ WebLLM/
 | Folder | Purpose |
 |--------|---------|
 | **`extension/`** | Source code (edit here when developing) |
-| **`dist/`** | Ready-to-run extension — **load this in Chrome**; also ZIP this for Chrome Web Store |
+| **`dist/`** | Ready-to-run extension — **load this in Chrome**; also extension can be found in the Chrome Web Store under the name WebLLM |
 | **`node_modules/`** | npm dependencies (not in repo; created by `npm install`) |
 
 **Why both?** Chrome cannot run the raw `extension/` tree (imports, bundling, WASM paths). `dist/` is the compiled output. It is checked into GitHub so end users do not need Node.js just to try the extension. After you edit source, run `npm run build` to refresh `dist/`.
