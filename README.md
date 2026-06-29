@@ -31,9 +31,27 @@ First launch downloads the **Gemma 4 E2B** model from Hugging Face (~3 GB, one t
 
 ---
 
-## Install (developers)
+## Install
 
-### 1. Clone and build
+### Option A — Use the extension immediately (no build)
+
+The repo includes a pre-built **`dist/`** folder so you can load WebLLM in Chrome without installing Node.js.
+
+```bash
+git clone https://github.com/yelloworangebananaa/WebLLM.git
+cd WebLLM
+```
+
+1. Open `chrome://extensions`
+2. Enable **Developer mode**
+3. Click **Load unpacked**
+4. Select the **`dist`** folder inside the cloned repo
+
+Chrome runs **`dist/`**, not **`extension/`**. The `extension/` folder is source code only.
+
+### Option B — Build from source
+
+Use this if you changed files under `extension/` and need a fresh build.
 
 ```bash
 git clone https://github.com/yelloworangebananaa/WebLLM.git
@@ -42,22 +60,15 @@ npm install
 npm run build
 ```
 
-On Windows you can also run:
+On Windows:
 
 ```powershell
 .\build.cmd
 ```
 
-### 2. Load in Chrome
+Then load the **`dist`** folder in Chrome (same steps as Option A).
 
-1. Open `chrome://extensions`
-2. Enable **Developer mode**
-3. Click **Load unpacked**
-4. Select the **`dist`** folder inside the repo
-
-> **Important:** Load `dist/`, not `extension/`. The `dist` folder is the built extension Chrome actually runs.
-
-### 3. First use
+### First use
 
 - Open the extension popup.
 - Wait for the model download (progress bar + status pill).
@@ -173,7 +184,7 @@ WebLLM/
 │       ├── promptBuilder.js
 │       ├── config.js
 │       └── state.js
-├── dist/                   # Built extension (generated — load this in Chrome)
+├── dist/                   # Built extension — committed so you can load without npm
 ├── tests/                  # Unit tests
 ├── vite.config.js          # Build: bundle JS + copy WASM assets
 ├── package.json
@@ -187,11 +198,11 @@ WebLLM/
 
 | Folder | Purpose |
 |--------|---------|
-| **`extension/`** | Human-readable source you edit |
-| **`dist/`** | Production bundle from `npm run build` — **upload this to Chrome Web Store** |
-| **`node_modules/`** | npm dependencies (not committed) |
+| **`extension/`** | Source code (edit here when developing) |
+| **`dist/`** | Ready-to-run extension — **load this in Chrome**; also ZIP this for Chrome Web Store |
+| **`node_modules/`** | npm dependencies (not in repo; created by `npm install`) |
 
-The build bundles `popup`, `background`, and `offscreen` entry points, copies `manifest.json`, HTML, CSS, and ONNX Runtime WASM into `dist/transformers/`.
+**Why both?** Chrome cannot run the raw `extension/` tree (imports, bundling, WASM paths). `dist/` is the compiled output. It is checked into GitHub so end users do not need Node.js just to try the extension. After you edit source, run `npm run build` to refresh `dist/`.
 
 ---
 
@@ -215,8 +226,8 @@ This is a **Chrome extension**, not an Android app.
 
 | Destination | What to upload |
 |-------------|----------------|
-| **Chrome Web Store** | ZIP of **`dist/` contents** (after `npm run build`) |
-| **GitHub** | This repository (source); do not commit `node_modules/` or `dist/` |
+| **Chrome Web Store** | ZIP the **contents** of `dist/` (root of ZIP = `manifest.json`) |
+| **GitHub** | This repo (includes `dist/` for easy install; excludes `node_modules/`) |
 
 You will also need store listing assets (icons, screenshots, privacy policy URL) before public release.
 
@@ -240,7 +251,7 @@ You will also need store listing assets (icons, screenshots, privacy policy URL)
 This project is licensed under the **MIT License** — see [LICENSE](LICENSE).
 
 ```
-Copyright (c) 2026 WebLLM contributors
+Copyright (c) 2026 yelloworangebananaa
 ```
 
 ### Third-party
@@ -251,12 +262,8 @@ Copyright (c) 2026 WebLLM contributors
 
 ---
 
-## Contributing
+## Author
 
-Issues and pull requests are welcome at [github.com/yelloworangebananaa/WebLLM](https://github.com/yelloworangebananaa/WebLLM).
+**[yelloworangebananaa](https://github.com/yelloworangebananaa)** — sole author and maintainer.
 
-1. Fork the repo
-2. Create a branch
-3. Edit under `extension/`
-4. Run `npm test` and `npm run build`
-5. Open a pull request
+Report issues on [GitHub Issues](https://github.com/yelloworangebananaa/WebLLM/issues).

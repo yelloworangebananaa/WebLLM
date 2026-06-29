@@ -1,0 +1,26 @@
+{
+  "manifest_version": 3,
+  "name": "WebLLM",
+  "version": "1.2.0",
+  "description": "Client-side screen-aware assistant powered by a local vision-language model.",
+  "minimum_chrome_version": "124",
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "WebLLM"
+  },
+  "background": {
+    "service_worker": "inference/background.js",
+    "type": "module"
+  },
+  "permissions": ["activeTab", "tabs", "alarms", "offscreen"],
+  "host_permissions": ["https://huggingface.co/*"],
+  "content_security_policy": {
+    "extension_pages": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["transformers/*"],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}
