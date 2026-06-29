@@ -1,6 +1,6 @@
 # WebLLM
 
-**WebLLM** is a Chrome extension that runs a vision-language model entirely in your browser. Ask questions about what is on your screen — or chat in text-only mode — with streaming answers and no backend server.
+**WebLLM** is a Chrome extension that runs a vision-language model entirely in your browser. Ask questions about what is on your screen — or chat in text-only mode — with streaming answers and no backend server. Extension can be found on the Chrome Web Store under the name: WebLLM
 
 Everything inference-related stays on your machine. There is no telemetry, no analytics, and no saved chat history.
 
